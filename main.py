@@ -29,7 +29,7 @@ def get_reservation_by_table(table: int):
 
 
 @app.post("/reservation")
-def reserve(reservation : Reservation):
+def reserve(reservation: Reservation):
     pass
 
 
@@ -39,5 +39,5 @@ def update_reservation(reservation: Reservation):
 
 
 @app.delete("/reservation/delete/{name}/{table_number}")
-def cancel_reservation(name: str, table_number : int):
+def cancel_reservation(name: str, table_number: int):
     pass
