@@ -2,8 +2,6 @@
 from fastapi import FastAPI, Query
 from pymongo import MongoClient
 from pydantic import BaseModel
-from fastapi.encoders import jsonable_encoder
-
 
 class Reservation(BaseModel):
     name : str
@@ -17,8 +15,6 @@ collection = db["tables"]
 
 app = FastAPI()
 
-
-# TODO complete all endpoint.
 @app.get("/reservation/by-name/{name}")
 def get_reservation_by_name(name:str):
     lst = []
@@ -32,8 +28,6 @@ def get_reservation_by_table(table: int):
     for i in collection.find({"table_number":table},{"_id":0}):
         lst.append(i)
     return lst
-
-
 
 @app.post("/reservation")
 def reserve(reservation : Reservation):
