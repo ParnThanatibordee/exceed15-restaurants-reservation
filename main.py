@@ -41,9 +41,15 @@ def reserve(reservation: Reservation):
 
 @app.put("/reservation/update/")
 def update_reservation(reservation: Reservation):
-    pass
+    find_previous_reserve = collection.find_one({"$and": [{"table": reservation.table_number},
+                                                {"name": reservation.name}]})
+    if len(find_previous_reserve) == 1:
+        collection.insert_one(find_previous_reserve, {"$set": reservation})
+    else:
+        raise HTTPException(404, f"Can't find any of your previous reservation")
+
 
 
 @app.delete("/reservation/delete/{name}/{table_number}")
-def cancel_reservation(name: str, table_number : int):
+def cancel_reservation(name: str, table_number: int):
     pass
