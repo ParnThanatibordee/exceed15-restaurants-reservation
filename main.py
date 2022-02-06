@@ -23,8 +23,8 @@ app = FastAPI()
 def get_reservation_by_name(name:str):
     pass
 
-@app.get("reservation/by-table/{table}")
-def get_reservation_by_table(table: int):
+@app.get("/reservation/by-table/{table_number}")
+def get_reservation_by_table(table_number: int):
     pass
 
 @app.post("/reservation")
