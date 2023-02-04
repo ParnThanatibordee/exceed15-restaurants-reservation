@@ -14,6 +14,10 @@ collection = db["tables"]
 
 app = FastAPI()
 
+@app.get("/")
+def get_base():
+    return "Welcome to exceed-restaurants-reservation"
+
 @app.get("/reservation/by-name/{name}")
 def get_reservation_by_name(name:str):
     lst = []
@@ -34,8 +38,8 @@ def reserve(reservation: Reservation):
     find_previous_reserve = collection.find({"$and": [{"table": reservation.table_number},
                                                       {"time": {"&gt": reservation.time}},
                                                       {"time": {"&lt": reservation.time+1}}]})
-    if len(find_previous_reserve) == 0:
-        collection.insert_one(reservation)
+    if len(list(find_previous_reserve)) == 0:
+        collection.insert_one(dict(reservation))
     else:
         raise HTTPException(404, f"The table already reserved")
 
